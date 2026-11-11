@@ -15,7 +15,8 @@ export default defineConfig({
   use: {
     baseURL: process.env.URL,
     testIdAttribute: "data-qa",
-    trace: 'on-first-retry',
+    trace: 'on',
+    video: 'retain-on-first-failure',
     screenshot: 'only-on-failure',
     headless: true,
 

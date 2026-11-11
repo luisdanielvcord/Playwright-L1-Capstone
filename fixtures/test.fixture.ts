@@ -34,7 +34,6 @@ type AppFixtures = {
   checkoutPage: CheckoutPage;
   paymentPage: PaymentPage;
   contactPage: ContactPage;
-  adsFreePage: Page;
   createUserViaApi: () => Promise<UserAccount>;
   deleteUserViaApi: (user: Pick<UserAccount, 'email' | 'password'>) => Promise<void>;
   existingUser: UserAccount;
@@ -108,7 +107,7 @@ async function deleteAccount(apiContext: APIRequestContext, user: Pick<UserAccou
 }
 
 export const test = base.extend<AppFixtures>({
-  adsFreePage: async ({ page }, use) => {
+  homePage: async ({ page }, use) => {
     await page.route(/doubleclick|googlesyndication|googleads|adservice|analytics|google_vignette/i, route => route.abort());
     await page.addInitScript(() => {
       const hideAds = () => {
@@ -124,9 +123,6 @@ export const test = base.extend<AppFixtures>({
       hideAds();
       new MutationObserver(hideAds).observe(document.documentElement, { childList: true, subtree: true });
     });
-    await use(page);
-  },
-  homePage: async ({ page }, use) => {
     const homePage = new HomePage(page);
     await homePage.goto();
     await use(homePage);

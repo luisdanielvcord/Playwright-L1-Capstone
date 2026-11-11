@@ -1,10 +1,10 @@
 import { test, expect } from '../fixtures/test.fixture';
 
 test.describe('Visual', () => {
-  test('matches women dress category page without ads', async ({ adsFreePage, homePage }) => {
+  test('matches women dress category page', async ({ homePage }) => {
     await homePage.openWomenDressCategory();
 
-    await expect(adsFreePage).toHaveURL(/category_products/);
-    await expect(adsFreePage).toHaveScreenshot('women-dress-category.png', { fullPage: true });
+    await expect(homePage['page']).toHaveURL(/category_products/);
+    await expect(homePage['page']).toHaveScreenshot('women-dress-category.png', { fullPage: true });
   });
 });
